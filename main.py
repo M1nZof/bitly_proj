@@ -50,8 +50,12 @@ def is_bitlink(url, bitly_token):
 
 
 if __name__ == '__main__':
+    load_dotenv()
+    parser = argparse.ArgumentParser(description='Создание короткой ссылки или подсчет кликов по уже существующей ссылке через сервис Bit.ly')
+    parser.add_argument('url', help='Ссылка для обработки', type=str)
+    args = parser.parse_args()
     bitly_token = os.environ['BITLY_TOKEN']
-    inputted_url = input('Input a link to cut: ')
+    inputted_url = args.url
     if is_bitlink(inputted_url, bitly_token):
         clicks = count_clicks(inputted_url, bitly_token)
         print(f"Total clicks of {inputted_url} = {clicks}")
