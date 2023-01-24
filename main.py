@@ -3,9 +3,9 @@ import requests
 import urllib.parse
 
 
-def shorten_link(url_to_cut, bitly_token):
+def shorten_link(url, bitly_token):
     headers = {'Authorization': f'Bearer {bitly_token}'}
-    request_parameters = {'long_url': url_to_cut}
+    request_parameters = {'long_url': url}
     response = requests.post(
       url='https://api-ssl.bitly.com/v4/bitlinks',
       json=request_parameters,
@@ -16,9 +16,9 @@ def shorten_link(url_to_cut, bitly_token):
     return response.json().get('link')
 
 
-def count_clicks(url_to_count, bitly_token):
+def count_clicks(url, bitly_token):
     headers = {'Authorization': f'Bearer {bitly_token}'}
-    parsed_url = urllib.parse.urlparse(url_to_count)
+    parsed_url = urllib.parse.urlparse(url)
     url = 'https://api-ssl.bitly.com/v4/bitlinks/' \
           f'{parsed_url.netloc}{parsed_url.path}/clicks/summary'
     params = (
